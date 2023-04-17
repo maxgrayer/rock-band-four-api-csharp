@@ -20,7 +20,7 @@ namespace RockBand4.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PersistedSong>> Get()
+        public async Task<IEnumerable<PersistedSong>> GetAll ()
         {
             return await _songService.GetAll();
         }
@@ -29,14 +29,8 @@ namespace RockBand4.API.Controllers
         public async Task<ActionResult<PersistedSong>> Get(int id)
         {
             var result = await _songService.Get(id);
-            if (result != default)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return NotFound();
-            }
+
+            return result != default ? Ok(result) : NotFound();
         }
 
         [HttpPost]
@@ -67,28 +61,21 @@ namespace RockBand4.API.Controllers
             }
 
             var result = await _songService.Update(dto);
-            if (result > 0)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
-            }
+            return result > 0 ? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<PersistedSong>> Delete(int id)
         {
             var result = await _songService.Delete(id);
-            if (result > 0)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
-            }
+            return result > 0 ? NoContent() : NotFound();
+        }
+
+        [HttpPost("Sync")]
+        public async Task<ActionResult> TriggerSync()
+        {
+            var result = await _songService.Sync();
+            return result > 0 ? Accepted() : BadRequest();
         }
     }
 }

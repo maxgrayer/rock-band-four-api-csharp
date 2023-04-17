@@ -10,6 +10,42 @@ namespace RockBand4.API.Models
 	{
 		public PersistedSong() { }
 
+        /// <summary>
+        /// Creates a new <see cref="PersistedSong"/> from a provided <see cref="ExternalSong"/>.
+        /// </summary>
+        /// <param name="externalSong">The external record to persist.</param>
+        public PersistedSong(ExternalSong externalSong)
+        {
+            Id = externalSong.SongIDNumber;
+            Artist = externalSong.Artist;
+            Title = externalSong.Name;
+            Album = externalSong.Album;
+            TrackNumber = -1;
+            Genre = externalSong.Genre;
+            Year = externalSong.Year;
+            Bpm = externalSong.BPM;
+            Duration = externalSong.SongLength;
+            DisplayRankGuitar = externalSong.GuitarDifficulty;
+            DisplayRankBass = externalSong.BassDifficulty;
+            DisplayRankDrums = externalSong.DrumsDifficulty;
+            DisplayRankVocal = externalSong.VocalsDifficulty;
+            DisplayRankBand = externalSong.BandDifficulty;
+            ShortName = externalSong.SongID;
+            ReleaseDate = externalSong.ReleaseDate;
+            IsOwned = false;
+            OnWishlist = false;
+            SortArtist = externalSong.Artist2;
+            SortTitle = externalSong.Name2;
+            SortAlbum = externalSong.Album2;
+            SortRankGuitar = externalSong.GuitarRanking;
+            SortRankBass = externalSong.BassRanking;
+            SortRankDrums = externalSong.DrumsRanking;
+            SortRankVocal = externalSong.VocalsRanking;
+            SortRankBand = externalSong.BandRanking;
+            XboxStoreLink = externalSong.StoreLinkXbox;
+            AwsArtworkLink = string.Empty;
+        }
+
         public int? Id { get; set; }
         public string? Artist { get; set; }
         public string? Title { get; set; }

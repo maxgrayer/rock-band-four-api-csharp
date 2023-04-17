@@ -7,9 +7,9 @@ namespace RockBand4.API.Services
     /// A service for interacting with <see cref="PersistedSong"/> models.
     /// </summary>
 	public interface ISongService
-	{
+    {
         /// <summary>
-        /// Fetches all records.
+        /// Fetches all persisted records.
         /// </summary>
         /// <returns>A collection of <see cref="PersistedSong"/> models.</returns>
         public Task<IEnumerable<PersistedSong>> GetAll();
@@ -41,6 +41,12 @@ namespace RockBand4.API.Services
         /// <param name="id">The identifier of the record to remove.</param>
         /// <returns>The code for the outcome of the operation.</returns>
         public Task<int> Delete(int id);
+
+        /// <summary>
+        /// Triggers a sync action with an external song catalog.
+        /// </summary>
+        /// <returns>The code for the outcome of the operation.</returns>
+        public Task<int> Sync();
     }
 }
 
