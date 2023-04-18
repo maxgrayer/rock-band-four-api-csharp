@@ -12,6 +12,20 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        // Setup CORS
+        var policyName = "_myAllowSpecificOrigins";
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: policyName,
+                              builder =>
+                              {
+                                  builder
+                                    .WithOrigins("http://localhost:3000")
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader();
+                              });
+        });
+
         // Add services to the container.
         builder.Services.AddScoped<ISongService, SongService>();
 
@@ -34,6 +48,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors(policyName);
 
         app.UseAuthorization();
 
